@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# version 1.0
+
+
+WORKINGDIR="OS-Settings-Backup" 
+
+echo "Setting up working directory, please wait..."
+mkdir $WORKINGDIR
+
+echo "Backing up current package selections..."
+dpkg --get-selections | grep -v deinstall > $WORKINGDIR/installed-packages
+
+echo "Backing up the /etc Folder..."
+sudo cp -a /etc $WORKINGDIR/
+
+echo "Moving and resetting working directory..."
+mv $WORKINGDIR $WORKINGDIR--`date +%m.%d.%y.%H.%M.%S`
+
+echo "Backup Completed."
+echo ""
+

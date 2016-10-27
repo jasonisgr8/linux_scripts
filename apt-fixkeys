@@ -1,0 +1,19 @@
+#!/bin/bash
+# Add mising public keys for apt-get
+# Version 1.0
+
+
+sudo apt-get update 2> .tmp.update.keys 1> /dev/null
+KEYS_TO_ADD="`cat .tmp.update.keys 2> /dev/null`"
+
+if [ "$KEYS_TO_ADD" ]; then
+  for EACH in `cat .tmp.update.keys | awk -F NO_PUBKEY\  {' print $2 '}`
+    do
+    echo "Adding key: $EACH ..."
+    gpg --keyserver hkp://subkeys.pgp.net --recv-keys $EACH
+    gpg --export --armor $EACH | sudo apt-key add -
+    done
+    rm .tmp.update.keys
+else echo "All your keys are good to go!"
+fi
+exit 0
