@@ -1,25 +1,24 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9"
-
+VERSION="1.9.1"
 
 # Kali Version
 KALI="kali-rolling"
 
-
 # Release Notes:
-# 1.9 - Added HoneySAP, SAP plugin for wireshark and impacket (initially for honeypotting SMB shares)
-# 1.8 - Added konsole and tor-browser-bundle
-# 1.7 - Added package update and upgrade before installing stuffs
-# 1.6 - Added gpsd and fruitywifi (fixed GPSd by disabling localhost ipv6 binding since we disable ipv6 later on)
-# 1.5 - Added MorphAES and removed fruitywifi (for now)
-# 1.4 - Added Fruitywifi
-# 1.3 - Fixed VirtualBox and vbox notes and added handbrake instead of dvdrip
-# 1.2 - Added xdotool to support the media keys extension for gnome
-# 1.1 - Reworked flow, added choices
-# 1.0 - Ported Kubuntu-installer to Kali-Builder
 
+# 1.9.1 -   Added MailSniper
+# 1.9   -   Added HoneySAP, SAP plugin for wireshark and impacket (initially for honeypotting SMB shares)
+# 1.8   -   Added konsole and tor-browser-bundle
+# 1.7   -   Added package update and upgrade before installing stuffs
+# 1.6   -   Added gpsd and fruitywifi (fixed GPSd by disabling localhost ipv6 binding since we disable ipv6 later on)
+# 1.5   -   Added MorphAES and removed fruitywifi (for now)
+# 1.4   -   Added Fruitywifi
+# 1.3   -   Fixed VirtualBox and vbox notes and added handbrake instead of dvdrip
+# 1.2   -   Added xdotool to support the media keys extension for gnome
+# 1.1   -   Reworked flow, added choices
+# 1.0   -   Ported Kubuntu-installer to Kali-Builder
 
 # This is the folder where testing scripts and tools will be put. 
 # Use /opt for a multi-user deployment
@@ -216,6 +215,10 @@ case $schoice in
 		git clone "https://github.com/cryptolok/MorphAES.git"
 		echo ""
 		
+		echo "Grabbing MailSniper..."
+		git clone "https://github.com/dafthack/MailSniper.git"
+		echo ""
+
 		echo "Grabbing Fluxion..."
 		git clone "https://github.com/deltaxflux/fluxion.git"
 		echo ""
