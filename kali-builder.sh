@@ -7,9 +7,9 @@ VERSION="1.9.1"
 KALI="kali-rolling"
 
 # Release Notes:
-
+# This script installs additional tools that I like to have available. 
 # 1.9.1 -   Added MailSniper
-# 1.9   -   Added HoneySAP, SAP plugin for wireshark and impacket (initially for honeypotting SMB shares)
+# 1.9   -   Added HoneySAP, SAP plugin for wireshark and impacket (great for honeypotting SMB shares)
 # 1.8   -   Added konsole and tor-browser-bundle
 # 1.7   -   Added package update and upgrade before installing stuffs
 # 1.6   -   Added gpsd and fruitywifi (fixed GPSd by disabling localhost ipv6 binding since we disable ipv6 later on)
@@ -262,7 +262,7 @@ case $schoice in
 		git clone "https://github.com/SpiderLabs/Responder.git"
 		echo ""
 
-		echo "Grabbing Automated Penetration Toolkit..."
+		echo "Grabbing Veil Toolkit..."
 		git clone "https://github.com/Veil-Framework/Veil.git"
 		cd $PROGRAMDIR/Veil
 		./Install.sh -c
@@ -364,8 +364,9 @@ sysctl -p
 
 fi
 
+# Fix X11 forwarding over remote SSH connections.
 if [ ! "`grep X11UseLocalhost /etc/ssh/sshd_config | grep -v \#`" ]; then
-echo "Fixing X Forwarding by adding \"X11UseLocalhost yes\" to the sshd_config file..."
+echo "Fixing X Forwarding by adding \"X11UseLocalhost no\" to the sshd_config file..."
 echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
 fi
 
