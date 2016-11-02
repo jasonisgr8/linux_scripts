@@ -1,4 +1,9 @@
 #!/bin/bash
+# Script to display system info when logging into a shell window
+# 1.) Make this script executable 
+# 2.) Call it at the bottom of your ~/.basrhc script to install/run whenever "bash" is executed with your uid.
+# Very handy for SSH connections
+
 
 VERSION="2.0"
 
