@@ -1,13 +1,14 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9.1"
+VERSION="1.9.2"
 
 # Kali Version
 KALI="kali-rolling"
 
 # Release Notes:
 # This script installs additional tools that I like to have available. 
+# 1.9.2 -   Re-enabled ipv6 (too buggy)
 # 1.9.1 -   Added MailSniper
 # 1.9   -   Added HoneySAP, SAP plugin for wireshark and impacket (great for honeypotting SMB shares)
 # 1.8   -   Added konsole and tor-browser-bundle
@@ -198,12 +199,10 @@ case $schoice in
 		case $fruity in
 			    [yY][eE][sS]|[yY]|'')
 			    echo "Installing packages, standby..."
-			    echo "NOTE: The GPSD install may fail, so we are going to remove ipv6 binding to localhost and reconfigure the package."
-			    apt-get install gpsd
-			    cp /lib/systemd/system/gpsd.socket /lib/systemd/system/gpsd.socket.original
-			    cat /lib/systemd/system/gpsd.socket | grep -v \:\: > /lib/systemd/system/gpsd.socket.clean
-			    mv /lib/systemd/system/gpsd.socket.clean /lib/systemd/system/gpsd.socket
-			    apt-get install fruitywifi
+			    apt-get install gpsd fruitywifi
+			    #cp /lib/systemd/system/gpsd.socket /lib/systemd/system/gpsd.socket.original
+			    #cat /lib/systemd/system/gpsd.socket | grep -v \:\: > /lib/systemd/system/gpsd.socket.clean
+			    #mv /lib/systemd/system/gpsd.socket.clean /lib/systemd/system/gpsd.socket
 			    cd $PROGRAMDIR
 		;;
 			    [nN][oO]|[nN])
@@ -348,21 +347,21 @@ apt-get autoclean
 
 system_tweaks () {
 
-if [ "`cat /etc/sysctl.conf | grep net.ipv6.conf.all.disable_ipv6 | grep 1 | grep -v \#`" ]; then
-echo "IPv6 has been disabled, skipping..."
-else
+#if [ "`cat /etc/sysctl.conf | grep net.ipv6.conf.all.disable_ipv6 | grep 1 | grep -v \#`" ]; then
+#echo "IPv6 has been disabled, skipping..."
+#else
 
-echo "Disabling IPv6 to speed up the internet..."
-echo 'Changing /etc/sysctl.conf...'
-echo '#Disable IPv6' >> /etc/sysctl.conf
-echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
-echo 'net.ipv6.conf.default.disable_ipv6 = 1' >> /etc/sysctl.conf
-echo 'net.ipv6.conf.lo.disable_ipv6 = 1' >> /etc/sysctl.conf
+#echo "Disabling IPv6 to speed up the internet..."
+#echo 'Changing /etc/sysctl.conf...'
+#echo '#Disable IPv6' >> /etc/sysctl.conf
+#echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
+#echo 'net.ipv6.conf.default.disable_ipv6 = 1' >> /etc/sysctl.conf
+#echo 'net.ipv6.conf.lo.disable_ipv6 = 1' >> /etc/sysctl.conf
 
 #apply settings
-sysctl -p
+#sysctl -p
 
-fi
+#fi
 
 # Fix X11 forwarding over remote SSH connections.
 if [ ! "`grep X11UseLocalhost /etc/ssh/sshd_config | grep -v \#`" ]; then
