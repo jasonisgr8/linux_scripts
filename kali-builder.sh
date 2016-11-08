@@ -8,7 +8,7 @@ KALI="kali-rolling"
 
 # Release Notes:
 # This script installs additional tools that I like to have available. 
-# 1.9.2 -   Re-enabled ipv6 (too buggy)
+# 1.9.2 -   Re-enabled ipv6 (too buggy) and added libreoffice
 # 1.9.1 -   Added MailSniper
 # 1.9   -   Added HoneySAP, SAP plugin for wireshark and impacket (great for honeypotting SMB shares)
 # 1.8   -   Added konsole and tor-browser-bundle
@@ -92,6 +92,7 @@ software-properties-common
 kate
 gnome-shell-extensions-gpaste
 gnome-shell-extension-caffeine
+libreoffice
 "
 
 SOURCES="/etc/apt/sources.list"
