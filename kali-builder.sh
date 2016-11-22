@@ -1,13 +1,14 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9.2"
+VERSION="1.9.3"
 
 # Kali Version
 KALI="kali-rolling"
 
 # Release Notes:
 # This script installs additional tools that I like to have available. 
+# 1.9.3 -   Added alacarte to edit menu items
 # 1.9.2 -   Re-enabled ipv6 (too buggy) and added libreoffice
 # 1.9.1 -   Added MailSniper
 # 1.9   -   Added HoneySAP, SAP plugin for wireshark and impacket (great for honeypotting SMB shares)
@@ -93,6 +94,7 @@ kate
 gnome-shell-extensions-gpaste
 gnome-shell-extension-caffeine
 libreoffice
+alacarte
 "
 
 SOURCES="/etc/apt/sources.list"
