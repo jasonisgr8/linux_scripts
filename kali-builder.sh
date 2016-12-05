@@ -1,13 +1,14 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9.3"
+VERSION="1.9.4"
 
 # Kali Version
 KALI="kali-rolling"
 
 # Release Notes:
 # This script installs additional tools that I like to have available. 
+# 1.9.4 -   Added terminator
 # 1.9.3 -   Added alacarte to edit menu items
 # 1.9.2 -   Re-enabled ipv6 (too buggy) and added libreoffice
 # 1.9.1 -   Added MailSniper
@@ -60,6 +61,7 @@ docker
 speedtest-cli
 fail2ban
 screen
+terminator
 build-essential
 linux-headers-amd64
 curl
