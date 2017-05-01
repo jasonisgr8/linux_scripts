@@ -136,7 +136,7 @@ read -r -p "Install VirtualBox?          [Y/n]? " schoice
 case $schoice in
         [yY][eE][sS]|[yY]|'')
 
-		VIRTUALBOX="`cat /etc/apt/sources.list* 2> /dev/null | grep -i virtualbox | grep -v \#`"
+		VIRTUALBOX="`grep -i virtualbox /etc/apt/sources.list | grep -v \#`"
 
 		if [ "$VIRTUALBOX" ]; then
 			echo "VirtualBox sources have been enabled here:"
@@ -161,7 +161,7 @@ esac
 }
 
 install_apps () {
-BACKPORTS="`cat /etc/apt/sources.list 2> /dev/null | grep -i backports | grep -v \#`"
+BACKPORTS="`grep -i backports /etc/apt/sources.list | grep -v \#`"
 if [ "$BACKPORTS" ]; then
 echo "Backports sources have been enabled here:"
 echo "$BACKPORTS"
