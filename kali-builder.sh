@@ -1,13 +1,14 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9.4"
+VERSION="1.9.5"
 
 # Kali Version
 KALI="kali-rolling"
 
 # Release Notes:
 # This script installs additional tools that I like to have available. 
+# 1.9.5 -   Added EAPHammer
 # 1.9.4 -   Added terminator
 # 1.9.3 -   Added alacarte to edit menu items
 # 1.9.2 -   Re-enabled ipv6 (too buggy) and added libreoffice
@@ -217,6 +218,10 @@ case $schoice in
 		
 		echo "Grabbing MorphAES..."
 		git clone "https://github.com/cryptolok/MorphAES.git"
+		echo ""
+		
+		echo "Grabbing EAPHammer..."
+		git clone "https://github.com/s0lst1c3/eaphammer.git"
 		echo ""
 		
 		echo "Grabbing MailSniper..."
