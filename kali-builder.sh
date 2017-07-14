@@ -1,13 +1,14 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9.5"
+VERSION="1.9.6"
 
 # Kali Version
 KALI="kali-rolling"
 
 # Release Notes:
 # This script installs additional tools that I like to have available. 
+# 1.9.6 -   Added gnome-wallpaper-changer to "media" apps
 # 1.9.5 -   Added EAPHammer
 # 1.9.4 -   Added terminator
 # 1.9.3 -   Added alacarte to edit menu items
@@ -340,6 +341,10 @@ read -r -p "Install media apps?          [Y/n]? " schoice
 case $schoice in
         [yY][eE][sS]|[yY]|'')
             echo "Installing Media Stuffs..."
+	    git clone "https://github.com/Jomik/gnome-wallpaper-changer.git" "~/.local/share/gnome-shell/extensions/wallpaper-changer@jomik.org"
+	    cd "~/.local/share/gnome-shell/extensions/wallpaper-changer@jomik.org"
+	    glib-compile-schemas ./schemas/
+	    
 	    apt-get -yq install $MEDIA_PROGRAMS
         ;;
         [nN][oO]|[nN])
