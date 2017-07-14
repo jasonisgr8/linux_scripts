@@ -13,10 +13,10 @@ cd /tmp/reputationdb-av
 wget http://reputation.alienvault.com/reputation.unix.gz
 gunzip reputation.unix.gz
 
-SUSPECT="`cat /tmp/reputationdb-av/reputation.unix | grep ALL | awk -F: '{ print $2 }' | sed 's/^\ //g' | awk '{ print $1 }'`"
+SUSPECT="`grep ALL /tmp/reputationdb-av/reputation.unix | awk -F: '{ print $2 }' | sed 's/^\ //g' | awk '{ print $1 }'`"
 log_and_print "Processing reputation database..."
 for EACH in $SUSPECT; do
- if [ ! "`cat /etc/hosts.deny | grep $EACH`" ]; then
+ if [ ! "`grep $EACH /etc/hosts.deny`" ]; then
     log_and_print "$EACH: This guy is not in the hosts.deny list, adding..."
     echo "ALL: $EACH" >> /etc/hosts.deny
 #    else log_and_print "$EACH: hosts.deny already has this one, :) skipping..."
