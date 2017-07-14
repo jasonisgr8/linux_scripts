@@ -1,11 +1,6 @@
 #!/bin/bash
-# Script to display system info when logging into a shell window
-# 1.) Make this script executable 
-# 2.) Call it at the bottom of your ~/.basrhc script to install/run whenever "bash" is executed with your uid.
-# Very handy for SSH connections
 
-
-VERSION="2.0"
+VERSION="2.1"
 
 PROCCOUNT=`ps -l | wc -l`
 PROCCOUNT=`expr $PROCCOUNT - 4`
@@ -24,8 +19,14 @@ echo -e "
 +++++++++++++++++: System Data :+++++++++++++++++++
 + Hostname = `hostname`
 + Uptime = `uptime | sed 's/.*up ([^,]*), .*/1/'`
-+ IP Addresses: `ifconfig | grep -v 127.0.0.1 | grep -i "inet\ " | awk -F: '{ print $1 }' | awk '{ print $2 }'`
++ IP Addresses: 
+`ifconfig | grep -v 127.0.0 | grep -i "inet\ " | awk -F: '{ print $2 }' | awk '{ print $1 }'`
+
 + Memory (MB): `echo "" && free -m | grep -v +`
+
++ Disk Space:
+`/bin/df -h`
+
 ++++++++++++++++++: User Data :++++++++++++++++++++
 + Username = `whoami`
 + Privlages = $PRIVLAGED
@@ -42,4 +43,5 @@ else echo -e "
 fi
 
 exit 0
+
 
