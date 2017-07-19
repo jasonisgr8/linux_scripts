@@ -1,13 +1,14 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9.6"
+VERSION="1.9.7"
 
 # Kali Version
 KALI="kali-rolling"
 
 # Release Notes:
-# This script installs additional tools that I like to have available. 
+# This script installs additional tools that I like to have available.
+# 1.9.7 -   Added RTFM DB by leostat
 # 1.9.6 -   Added gnome-wallpaper-changer to "media" apps
 # 1.9.5 -   Added EAPHammer
 # 1.9.4 -   Added terminator
@@ -277,6 +278,10 @@ case $schoice in
 		cd $PROGRAMDIR/Veil
 		./Install.sh -c
 		cd $PROGRAMDIR
+		echo ""
+
+		echo "Grabbing RTFM database. This provides a searchable DB of the RTFM command references..."
+		git clone "https://github.com/leostat/rtfm"
 		echo ""
 
 		echo "Grabbing a forked versions of PowerSploit and Powertools used in \"The Hacker Playbook 2\"."
