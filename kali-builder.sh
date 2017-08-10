@@ -8,6 +8,7 @@ KALI="kali-rolling"
 
 # Release Notes:
 # This script installs additional tools that I like to have available.
+# 1.9.8 -   Removed Kate and yakuake. Added gnome-applets, gnome-screensaver, and gnome-shell-extension-pixelsaver
 # 1.9.7.1 - Added terminaltables requirements for RTFM DB
 # 1.9.7 -   Added RTFM DB by leostat
 # 1.9.6 -   Added gnome-wallpaper-changer to "media" apps
@@ -61,6 +62,9 @@ network-manager-pptp-gnome
 network-manager-strongswan 
 network-manager-vpnc 
 network-manager-vpnc-gnome
+gnome-applets
+gnome-screensaver
+gnome-shell-extension-pixelsaver
 docker
 speedtest-cli
 fail2ban
@@ -82,7 +86,6 @@ mtr
 cifs-utils
 exfat-utils
 konsole
-yakuake
 x2x
 x2vnc
 heirloom-mailx
@@ -96,7 +99,6 @@ xrdp
 tofrodos
 pkg-config
 software-properties-common
-kate
 gnome-shell-extensions-gpaste
 gnome-shell-extension-caffeine
 libreoffice
