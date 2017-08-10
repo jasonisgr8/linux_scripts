@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9.7.1"
+VERSION="1.9.8"
 
 # Kali Version
 KALI="kali-rolling"
