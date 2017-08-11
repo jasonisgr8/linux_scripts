@@ -1,13 +1,14 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9.8"
+VERSION="1.9.8.1"
 
 # Kali Version
 KALI="kali-rolling"
 
 # Release Notes:
 # This script installs additional tools that I like to have available.
+# 1.9.8.1 - Fixed Fluxion repo
 # 1.9.8 -   Removed Kate and yakuake. Added gnome-applets, gnome-screensaver, and gnome-shell-extension-pixelsaver
 # 1.9.7.1 - Added terminaltables requirements for RTFM DB
 # 1.9.7 -   Added RTFM DB by leostat
@@ -234,7 +235,7 @@ case $schoice in
 		echo ""
 
 		echo "Grabbing Fluxion..."
-		git clone "https://github.com/deltaxflux/fluxion.git"
+		git clone "https://github.com/FluxionNetwork/fluxion"
 		echo ""
 
 		echo "Grabbing impacket..."
