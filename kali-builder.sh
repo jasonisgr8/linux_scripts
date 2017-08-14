@@ -117,6 +117,7 @@ sudo $0
 exit 0
 fi
 
+echo "Running version $VERSION of this script."
 # Get the system up to date on packages
 apt update
 apt dist-upgrade -y
