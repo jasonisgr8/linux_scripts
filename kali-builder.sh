@@ -1,13 +1,14 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9.8.1"
+VERSION="1.9.8.2"
 
 # Kali Version
 KALI="kali-rolling"
 
 # Release Notes:
 # This script installs additional tools that I like to have available.
+# 1.9.8.2 - Changed apt-get to apt
 # 1.9.8.1 - Fixed Fluxion repo
 # 1.9.8 -   Removed Kate and yakuake. Added gnome-applets, gnome-screensaver, and gnome-shell-extension-pixelsaver
 # 1.9.7.1 - Added terminaltables requirements for RTFM DB
@@ -117,11 +118,11 @@ exit 0
 fi
 
 # Get the system up to date on packages
-apt-get update
-apt-get dist-upgrade -y
+apt update
+apt dist-upgrade -y
 
 update_repos () {
-apt-get update 2> .tmp.update.keys 1> /dev/null
+apt update 2> .tmp.update.keys 1> /dev/null
 KEYS_TO_ADD="`cat .tmp.update.keys 2> /dev/null`"
 
 if [ "$KEYS_TO_ADD" ]; then
@@ -157,7 +158,7 @@ case $schoice in
 			wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
 		fi
 		update_repos
-		apt-get install virtualbox
+		apt install virtualbox
 	;;
         [nN][oO]|[nN])
 	    echo "Moving on..."           
@@ -181,13 +182,13 @@ update_repos
 fi
 
 echo "Installing Utilities..."
-apt-get -yq install $UTILITY_PROGRAMS
+apt -yq install $UTILITY_PROGRAMS
 
 if [  ! `which google-chrome` ]; then
 echo "Installing Google Chrome..."
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 dpkg -i google-chrome-stable_current_amd64.deb
-apt-get -f install
+apt -f install
 echo 'Moving chrome package to /tmp...'
 mv google-chrome-stable_current_amd64.deb /tmp/
 update_repos
@@ -203,7 +204,7 @@ read -r -p "Install additional security tools?          [Y/n]? " schoice
 case $schoice in
         [yY][eE][sS]|[yY]|'')
 		echo "Installing Security Tools..."
-		apt-get -yq install $SECURITY_PROGRAMS
+		apt -yq install $SECURITY_PROGRAMS
 		mkdir -p $PROGRAMDIR
 		cd $PROGRAMDIR
 		;;
@@ -349,7 +350,7 @@ case $schoice in
 	    cd "~/.local/share/gnome-shell/extensions/wallpaper-changer@jomik.org"
 	    glib-compile-schemas ./schemas/
 	    
-	    apt-get -yq install $MEDIA_PROGRAMS
+	    apt -yq install $MEDIA_PROGRAMS
         ;;
         [nN][oO]|[nN])
 	    echo "Moving on..."           
@@ -357,11 +358,11 @@ case $schoice in
 esac
 
 echo "Updating ALL Installed Packages..."
-apt-get -yq dist-upgrade
+apt -yq dist-upgrade
 
 echo "Cleaning up package garbage..."
-apt-get clean
-apt-get autoclean
+apt clean
+apt autoclean
 }
 
 system_tweaks () {
