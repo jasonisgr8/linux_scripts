@@ -206,16 +206,6 @@ case $schoice in
 		apt-get -yq install $SECURITY_PROGRAMS
 		mkdir -p $PROGRAMDIR
 		cd $PROGRAMDIR
-		
-        read -r -p "Do you want to install GPS and FruityWIFI?          [Y/n]? " fruity
-		case $fruity in
-			    [yY][eE][sS]|[yY]|'')
-			    echo "Installing packages, standby..."
-			    apt-get install gpsd fruitywifi
-			    #cp /lib/systemd/system/gpsd.socket /lib/systemd/system/gpsd.socket.original
-			    #cat /lib/systemd/system/gpsd.socket | grep -v \:\: > /lib/systemd/system/gpsd.socket.clean
-			    #mv /lib/systemd/system/gpsd.socket.clean /lib/systemd/system/gpsd.socket
-			    cd $PROGRAMDIR
 		;;
 			    [nN][oO]|[nN])
 			    echo "Moving on..."    
