@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ ! $1 ]; then 
+echo "Usage: $0 <YouTube URL>"
+else youtube-dl --extract-audio --audio-format mp3 $1
+fi

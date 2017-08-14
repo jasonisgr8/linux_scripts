@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+
+sudo updatedb &
+sudo apt update && sudo apt -yq --force-yes dist-upgrade
