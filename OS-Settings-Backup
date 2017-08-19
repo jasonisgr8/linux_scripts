@@ -20,7 +20,8 @@ sudo dpkg --set-selections < $2/Package.list
 sudo apt-get dselect-upgrade -y
 exit 0
 else 
-echo "Usage: $0 restore /backup/directory"
+echo "ERROR: YOU DID NOT SPECIFY A BACKUP DIRECTORY!
+Usage: $0 restore /backup/directory"
 exit 1
 fi
 else
