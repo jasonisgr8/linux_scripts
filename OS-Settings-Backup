@@ -7,7 +7,7 @@ WORKINGDIR="OS-Settings-Backup"
 if [ $1 == "restore" ]; then
 if [ $2 ]; then
 sudo apt-key add $2/Repo.keys
-sudo cp -R $2/sources.list* /etc/apt/
+sudo cp -R $2/sources/sources.list* /etc/apt/
 sudo apt-get update
 sudo apt-get install dselect
 sudo dselect update
@@ -28,11 +28,12 @@ fi
 
 echo "Setting up working directory, please wait..."
 mkdir $WORKINGDIR
+mkdir $WORKINGDIR/sources
 
 echo "Backing up current package selections..."
 dpkg --get-selections | grep -v deinstall > $WORKINGDIR/installed-packages
 dpkg --get-selections > $WORKINGDIR/Package.list
-sudo cp -R /etc/apt/sources.list* $WORKINGDIR/
+sudo cp -R /etc/apt/sources.list* $WORKINGDIR/sources/
 sudo apt-key exportall > $WORKINGDIR/Repo.keys
 
 echo "Backing up the /etc Folder..."
