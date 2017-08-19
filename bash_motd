@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="2.1"
+VERSION="2.2"
 
 PROCCOUNT=`ps -l | wc -l`
 PROCCOUNT=`expr $PROCCOUNT - 4`
@@ -20,19 +20,15 @@ echo -e "
 + Hostname = `hostname`
 + Uptime = `uptime | sed 's/.*up ([^,]*), .*/1/'`
 + IP Addresses: 
-`ifconfig | grep -v 127.0.0 | grep -i "inet\ " | awk -F: '{ print $2 }' | awk '{ print $1 }'`
-
+`ifconfig | grep -v 127.0.0 | grep -i "inet\ "`
 + Memory (MB): `echo "" && free -m | grep -v +`
-
 + Disk Space:
-`/bin/df -h`
-
+`/bin/df -h ./`
 ++++++++++++++++++: User Data :++++++++++++++++++++
 + Username = `whoami`
 + Privlages = $PRIVLAGED
 + Sessions = `who | grep $USER | wc -l` of $ENDSESSION MAX
 + Processes = $PROCCOUNT of $ENDPROC MAX"
-
 if [ ! "`which VBoxManage`" ]; then
 echo "+++++++++++++++++++++++++++++++++++++++++++++++++++"
 else echo -e "
