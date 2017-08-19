@@ -1,7 +1,6 @@
 #!/bin/bash
 
 if [ ! "`which youtube-dl`" ]; then
-echo ":  [Y|n]"
 read -r -p "    Youtube-dl not found, would you like to install it?             [Y/n]? " answer
     case $answer in
         [yY][eE][sS]|[yY]|'')
