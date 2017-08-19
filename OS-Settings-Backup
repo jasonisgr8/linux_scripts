@@ -28,7 +28,7 @@ echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Usage: 
 To Backup Just run $0
 
-To restore packages from a previous backup: 
+To restore packages and keys from a previous backup: 
 $0 restore /backup/directory
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 fi
