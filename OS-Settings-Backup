@@ -19,11 +19,13 @@ echo "Usage: $0 restore /backup/directory"
 exit 1
 fi
 else
-echo -e "Usage: 
+echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Usage: 
 To Backup Just run $0
 
 To restore packages from a previous backup: 
-$0 restore /backup/directory"
+$0 restore /backup/directory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 fi
 
 echo "Setting up working directory, please wait..."
