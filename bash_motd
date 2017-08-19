@@ -15,8 +15,7 @@ ENDSESSION="Unlimited"
 PRIVLAGED="Regular User"
 fi
 
-echo -e "
-+++++++++++++++++: System Data :+++++++++++++++++++
+echo -e "+++++++++++++++++: System Data :+++++++++++++++++++
 + Hostname = `hostname`
 + Uptime = `uptime | sed 's/.*up ([^,]*), .*/1/'`
 + IP Addresses: 
