@@ -1,13 +1,14 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9.8.2"
+VERSION="1.9.9"
 
 # Kali Version
 KALI="kali-rolling"
 
 # Release Notes:
 # This script installs additional tools that I like to have available.
+# 1.9.9 -   Disabled VIM "Visual Mode" in ~/.vimrc
 # 1.9.8.2 - Changed apt-get to apt
 # 1.9.8.1 - Fixed Fluxion repo
 # 1.9.8 -   Removed Kate and yakuake. Added gnome-applets, gnome-screensaver, and gnome-shell-extension-pixelsaver
@@ -383,6 +384,9 @@ system_tweaks () {
 #sysctl -p
 
 #fi
+
+# Disable VIM "Visual Mode" in ~/.vimrc
+echo "set mouse-=a" >> ~/.vimrc
 
 # Fix X11 forwarding over remote SSH connections.
 if [ ! "`grep X11UseLocalhost /etc/ssh/sshd_config | grep -v \#`" ]; then
