@@ -1,13 +1,14 @@
 #!/bin/bash
 #
 # Kali-installer
-VERSION="1.9.9"
+VERSION="1.9.10"
 
 # Kali Version
 KALI="kali-rolling"
 
 # Release Notes:
 # This script installs additional tools that I like to have available.
+# 1.9.10 -  Added mac OS office payload generator (macphish)
 # 1.9.9 -   Disabled VIM "Visual Mode" in ~/.vimrc
 # 1.9.8.2 - Changed apt-get to apt
 # 1.9.8.1 - Fixed Fluxion repo
@@ -257,6 +258,10 @@ case $schoice in
 
 		echo "Grabbing Discover scripts..."
 		git clone "https://github.com/leebaird/discover.git"
+		echo ""
+		
+		echo "Grabbing MacPhish scripts..."
+		git clone "https://github.com/cldrn/macphish"
 		echo ""
 
 		echo "Grabbing WinPayloads scripts..."
