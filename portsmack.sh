@@ -46,7 +46,7 @@ netcat -v -l -p $each -e /tmp/.response.sh 2>&1 | sed -s 's/^/PortSmack\ -\ /g' 
 log_and_print "Done."
 fi
 
-SUSPECT="`grep PortSmack /var/log/syslog | awk -F[ '{ print $3 }' | awk -F] '{ print $1 }' |sort | uniq | grep -v $WHITELIST1 | grep -v $WHITELIST2 | grep -v $WHITELIST3 | grep -v $WHITELIST4`"
+SUSPECT="`grep PortSmack /var/log/syslog | awk -F[ '{ print $3 }' | awk -F] '{ print $1 }' | sort | uniq | grep -v $WHITELIST1 | grep -v $WHITELIST2 | grep -v $WHITELIST3 | grep -v $WHITELIST4`"
 
 for TARGET in $SUSPECT; do
 if [ ! "`cat /etc/hosts.deny | grep $TARGET`" ]; then
