@@ -1,11 +1,13 @@
 #!/bin/bash
 
-VERSION="1.1"
+VERSION="1.2"
 
 ## Changelog
+# 1.2 - Added comments
 # 1.1 - Updated logging
 # 1.0 - Private release
 
+# Identify which ports you want to listen on.
 PORTS="21
 23
 1433
@@ -15,6 +17,8 @@ PORTS="21
 139
 "
 
+# Identify which hosts you want to whitelist. NOTE: you can duplicate entries if you do not have 4 to whitelist.
+# Alternatively you can edit the SUSPECT variable and remove the grep exclusions for whitelists you want to remove.
 WHITELIST1="127.0.0"
 WHITELIST2="117.121.10.46"
 WHITELIST3="72.36.166.162"
