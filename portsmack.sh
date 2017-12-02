@@ -1,8 +1,9 @@
 #!/bin/bash
 
-VERSION="1.2"
+VERSION="1.3"
 
 ## Changelog
+# 1.3 - Added check for netcat dependancy
 # 1.2 - Added comments
 # 1.1 - Updated logging
 # 1.0 - Private release
@@ -33,6 +34,11 @@ log_and_print ()
 if [ "$UID" != "0" ];then
 echo "I am not root, lets try again with sudo..."
 sudo $0
+exit 0
+fi
+
+if [ ! "`which netcat`" ];then
+echo "I can not find netcat, exiting."
 exit 0
 fi
 
