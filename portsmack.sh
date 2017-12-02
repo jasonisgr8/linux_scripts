@@ -1,8 +1,10 @@
 #!/bin/bash
 
-VERSION="1.3"
+VERSION="1.4"
 
 ## Changelog
+
+# 1.4 - Added better port reporting
 # 1.3 - Added check for netcat dependancy
 # 1.2 - Added comments
 # 1.1 - Updated logging
@@ -52,7 +54,7 @@ for each in $PORTS
 do
 if [ ! "`/usr/bin/lsof -i :$each`" ]; then
 log_and_print "Port $each available, starting listener..."
-netcat -v -l -p $each -e /tmp/.response.sh 2>&1 | sed -s 's/^/PortSmack\ -\ /g' | logger  &
+netcat -v -l -p $each -e /tmp/.response.sh 2>&1 | sed -s "s/^/PortSmack\ -\ Port\:$each\ /g" | logger  &
 log_and_print "Done."
 fi
 
