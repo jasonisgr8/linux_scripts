@@ -15,9 +15,6 @@ PORTS="21
 23
 1433
 445
-135
-137
-139
 "
 
 # Identify which hosts you want to whitelist. NOTE: you can duplicate entries if you do not have 4 to whitelist.
@@ -56,6 +53,7 @@ if [ ! "`/usr/bin/lsof -i :$each`" ]; then
 log_and_print "Port $each available, starting listener..."
 netcat -v -l -p $each -e /tmp/.response.sh 2>&1 | sed -s "s/^/PortSmack\ -\ Port\:$each\ /g" | logger  &
 log_and_print "Done."
+else sleep 20
 fi
 
 SUSPECT="`grep PortSmack /var/log/syslog | awk -F[ '{ print $3 }' | awk -F] '{ print $1 }' | sort | uniq | grep -v $WHITELIST1 | grep -v $WHITELIST2 | grep -v $WHITELIST3 | grep -v $WHITELIST4`"
