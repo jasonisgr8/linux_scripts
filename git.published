@@ -1,0 +1,18 @@
+#!/bin/bash
+# git.published
+
+EMAIL="jasonisgr8@gmail.com"
+NAME="jason"
+
+echo "Preparing to publish modified files..."
+git config --global user.email "$EMAIL"
+git config --global user.name "$NAME"
+git add .
+
+echo "Preparing to commit..."
+git commit -m "Updated"
+
+echo "Pushing updates to github"
+git push
+  
+exit 0
