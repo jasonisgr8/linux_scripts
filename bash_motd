@@ -38,5 +38,3 @@ else echo -e "
 fi
 
 exit 0
-
-
