@@ -47,15 +47,15 @@ if [ $1 == "status" ]; then
 clear
 SEPERATOR="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo $SEPERATOR
-echo "++ /etc/hosts.deny: `sudo grep ALL /etc/hosts.deny | wc -l` blocked IP addresses."
-echo "++ syslog shows `sudo grep -i portsmack /var/log/syslog | grep connect\ to | wc -l` blocked IP addresses in the last 24 hours."
+echo "++ /etc/hosts.deny: `grep ALL /etc/hosts.deny | wc -l` blocked IP addresses."
+echo "++ syslog shows `grep -i portsmack /var/log/syslog | grep connect\ to | wc -l` blocked IP addresses in the last 24 hours."
 echo $SEPERATOR
 echo "++ Top Port hits (last 24 hours):"
 
-PORTS="`sudo grep PortSmack /var/log/syslog | grep connect | grep Port\: | awk -FPort\: '{ print $2 }' | awk -F\  '{ print $1 }' | sort | uniq`"
+PORTS="`grep PortSmack /var/log/syslog | grep connect | grep Port\: | awk -FPort\: '{ print $2 }' | awk -F\  '{ print $1 }' | sort | uniq`"
 for each in $PORTS
 do
-echo "++ Port $each: `sudo grep PortSmack /var/log/syslog | grep connect | grep Port\: | awk -FPort\: '{ print $2 }' | awk -F\  '{ print $1 }' | sort | grep $each | wc -l` hits"
+echo "++ Port $each: `grep PortSmack /var/log/syslog | grep connect | grep Port\: | awk -FPort\: '{ print $2 }' | awk -F\  '{ print $1 }' | sort | grep $each | wc -l` hits"
 done
 echo $SEPERATOR
 echo "Recent syslog activity:"
