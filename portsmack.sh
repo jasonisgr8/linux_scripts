@@ -59,7 +59,7 @@ echo "++ Port $each: `grep PortSmack /var/log/syslog | grep connect | grep Port\
 done
 echo $SEPERATOR
 echo "Recent syslog activity:"
-sudo tail -n45 /var/log/syslog | grep PortSmack
+tail -n45 /var/log/syslog | grep PortSmack
 exit 0
 fi
 
