@@ -51,13 +51,6 @@ echo "I can not find netcat, exiting."
 exit 0
 fi
 
-if [ "`ps -ef | grep $0`" ]; then
-echo "PortSmack is already running here:"
-echo "`ps -ef | grep $0`"
-echo "Exiting."
-exit 0
-fi
-
 if [ "$1" == "status" ]; then
 clear
 SEPERATOR="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -78,6 +71,12 @@ tail -n45 /var/log/syslog | grep PortSmack
 exit 0
 fi
 
+if [ "`ps -ef | grep $0`" ]; then
+echo "PortSmack is already running here:"
+echo "`ps -ef | grep $0`"
+echo "Exiting."
+exit 0
+fi
 
 echo '#!/bin/bash' > /tmp/.response.sh
 echo 'echo -e "I thought I smelled something phishy about you. Tisk Tisk...";' >> /tmp/.response.sh
