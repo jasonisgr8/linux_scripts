@@ -1,9 +1,11 @@
 #!/bin/bash
 
-VERSION="1.4"
+VERSION="2.0"
 
 ## Changelog
 
+# 2.0 - Bugfixes and added "status" to show recent stats and log data
+#       Usage: ./portsmack.sh status 
 # 1.4 - Added better port reporting
 # 1.3 - Added check for netcat dependancy
 # 1.2 - Added comments
@@ -40,6 +42,27 @@ if [ ! "`which netcat`" ];then
 echo "I can not find netcat, exiting."
 exit 0
 fi
+
+if [ $1 == "status" ]; then
+clear
+SEPERATOR="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo $SEPERATOR
+echo "++ /etc/hosts.deny: `sudo grep ALL /etc/hosts.deny | wc -l` blocked IP addresses."
+echo "++ syslog shows `sudo grep -i portsmack /var/log/syslog | grep connect\ to | wc -l` blocked IP addresses in the last 24 hours."
+echo $SEPERATOR
+echo "++ Top Port hits:"
+
+PORTS="`sudo grep PortSmack /var/log/syslog | grep connect | grep Port\: | awk -FPort\: '{ print $2 }' | awk -F\  '{ print $1 }' | sort | uniq`"
+for each in $PORTS
+do
+echo "++ Port $each: `sudo grep PortSmack /var/log/syslog | grep connect | grep Port\: | awk -FPort\: '{ print $2 }' | awk -F\  '{ print $1 }' | sort | grep $each | wc -l` hits"
+done
+echo $SEPERATOR
+echo "Recent syslog activity:"
+sudo tail -n45 /var/log/syslog | grep PortSmack
+exit 0
+fi
+
 
 echo '#!/bin/bash' > /tmp/.response.sh
 echo 'echo -e "I thought I smelled something phishy about you. Tisk Tisk...";' >> /tmp/.response.sh
