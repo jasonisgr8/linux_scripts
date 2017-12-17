@@ -39,7 +39,10 @@ log_and_print ()
 
 if [ "$UID" != "0" ];then
 echo "I am not root, lets try again with sudo..."
-sudo $0
+if [ $1 ];then
+sudo $0 $1
+else sudo $0
+fi
 exit 0
 fi
 
