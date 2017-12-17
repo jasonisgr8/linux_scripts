@@ -1,5 +1,5 @@
 #!/bin/bash
-# Pull and block AlienVault bad guys via iptables.
+# Pull and block bad guys via iptables.
 
 log_and_print ()
 {
