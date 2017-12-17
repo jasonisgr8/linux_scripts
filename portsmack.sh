@@ -21,11 +21,15 @@ PORTS="21
 "
 
 # Identify which hosts you want to whitelist. NOTE: you can duplicate entries if you do not have 4 to whitelist.
-# Alternatively you can edit the SUSPECT variable and remove the grep exclusions for whitelists you want to remove.
+# If you want to add more whitelisted IPs, make sure to add them to the SUSPECT variable.
 WHITELIST1="127.0.0"
 WHITELIST2="117.121.10.46"
 WHITELIST3="72.36.166.162"
 WHITELIST4="188.104.216"
+
+SUSPECT="`sudo grep PortSmack /var/log/syslog | awk -F[ '{ print $3 }' | awk -F] '{ print $1 }' |sort | uniq | grep -v $WHITELIST1 | grep -v $WHITELIST2 | grep -v $WHITELIST3 | grep -v $WHITELIST4`"
+
+##### YOU SHOULD NOT HAVE TO EDIT BELOW THIS POINT #####
 
 log_and_print ()
 {
@@ -79,8 +83,6 @@ netcat -v -l -p $each -e /tmp/.response.sh 2>&1 | sed -s "s/^/PortSmack\ -\ Port
 log_and_print "Done."
 else sleep 20
 fi
-
-SUSPECT="`grep PortSmack /var/log/syslog | awk -F[ '{ print $3 }' | awk -F] '{ print $1 }' | sort | uniq | grep -v $WHITELIST1 | grep -v $WHITELIST2 | grep -v $WHITELIST3 | grep -v $WHITELIST4`"
 
 for TARGET in $SUSPECT; do
 if [ ! "`cat /etc/hosts.deny | grep $TARGET`" ]; then
