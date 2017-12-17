@@ -1,6 +1,7 @@
 #!/bin/bash
 
 VERSION="2.0"
+# Usage: ./portsmack.sh 
 
 ## Changelog
 
