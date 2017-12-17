@@ -48,7 +48,7 @@ echo "I can not find netcat, exiting."
 exit 0
 fi
 
-if [ $1 == "status" ]; then
+if [ "$1" == "status" ]; then
 clear
 SEPERATOR="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo $SEPERATOR
