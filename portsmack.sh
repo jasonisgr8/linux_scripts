@@ -50,7 +50,7 @@ echo $SEPERATOR
 echo "++ /etc/hosts.deny: `sudo grep ALL /etc/hosts.deny | wc -l` blocked IP addresses."
 echo "++ syslog shows `sudo grep -i portsmack /var/log/syslog | grep connect\ to | wc -l` blocked IP addresses in the last 24 hours."
 echo $SEPERATOR
-echo "++ Top Port hits:"
+echo "++ Top Port hits (last 24 hours):"
 
 PORTS="`sudo grep PortSmack /var/log/syslog | grep connect | grep Port\: | awk -FPort\: '{ print $2 }' | awk -F\  '{ print $1 }' | sort | uniq`"
 for each in $PORTS
