@@ -51,6 +51,13 @@ echo "I can not find netcat, exiting."
 exit 0
 fi
 
+if [ "`ps -ef | grep $0`" ]; then
+echo "PortSmack is already running here:"
+echo "`ps -ef | grep $0`"
+echo "Exiting."
+exit 0
+fi
+
 if [ "$1" == "status" ]; then
 clear
 SEPERATOR="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
