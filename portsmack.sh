@@ -1,10 +1,11 @@
 #!/bin/bash
 
-VERSION="2.0"
+VERSION="2.1"
 # Usage: ./portsmack.sh 
 
 ## Changelog
 
+# 2.1 - Bugfix to correct suspects not being blocked correctly
 # 2.0 - Bugfixes and added "status" to show recent stats and log data
 #       Usage: ./portsmack.sh status 
 # 1.4 - Added better port reporting
@@ -26,10 +27,6 @@ WHITELIST1="127.0.0"
 WHITELIST2="117.121.10.46"
 WHITELIST3="72.36.166.162"
 WHITELIST4="188.104.216"
-
-SUSPECT="`sudo grep PortSmack /var/log/syslog | awk -F[ '{ print $3 }' | awk -F] '{ print $1 }' |sort | uniq | grep -v $WHITELIST1 | grep -v $WHITELIST2 | grep -v $WHITELIST3 | grep -v $WHITELIST4`"
-
-##### YOU SHOULD NOT HAVE TO EDIT BELOW THIS POINT #####
 
 log_and_print ()
 {
@@ -86,6 +83,8 @@ netcat -v -l -p $each -e /tmp/.response.sh 2>&1 | sed -s "s/^/PortSmack\ -\ Port
 log_and_print "Done."
 else sleep 20
 fi
+
+SUSPECT="`sudo grep PortSmack /var/log/syslog | awk -F[ '{ print $3 }' | awk -F] '{ print $1 }' |sort | uniq | grep -v $WHITELIST1 | grep -v $WHITELIST2 | grep -v $WHITELIST3 | grep -v $WHITELIST4`"
 
 for TARGET in $SUSPECT; do
 if [ ! "`cat /etc/hosts.deny | grep $TARGET`" ]; then
