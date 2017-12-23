@@ -9,6 +9,6 @@ sudo $0
 exit 0
 fi
 
-sudo apt update && sudo apt -yq --force-yes dist-upgrade
-sudo updatedb &
+apt update && apt -yq --force-yes dist-upgrade
+updatedb &
 exit 0
