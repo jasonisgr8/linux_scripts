@@ -1,10 +1,11 @@
 #!/bin/bash
 
-VERSION="2.1"
+VERSION="2.2"
 # Usage: ./portsmack.sh 
 
 ## Changelog
 
+# 2.2 - Bugfix to correct status not excluding hosts that are commented out of hosts.deny
 # 2.1 - Bugfix to correct suspects not being blocked correctly
 # 2.0 - Bugfixes and added "status" to show recent stats and log data
 #       Usage: ./portsmack.sh status 
@@ -52,7 +53,7 @@ if [ "$1" == "status" ]; then
 clear
 SEPERATOR="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo $SEPERATOR
-echo "++ /etc/hosts.deny: `grep ALL /etc/hosts.deny | wc -l` blocked IP addresses."
+echo "++ /etc/hosts.deny: `grep ALL /etc/hosts.deny | grep -v "^#" | wc -l` blocked IP addresses."
 echo "++ syslog shows `grep -i portsmack /var/log/syslog | grep connect\ to | wc -l` blocked IP addresses in the last 24 hours."
 echo $SEPERATOR
 echo "++ Top Port hits (last 24 hours):"
