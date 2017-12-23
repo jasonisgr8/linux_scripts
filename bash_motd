@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Call this script at the end of your ~/.bashrc or ~/.profile to have a system stat summary printed at login
+
 VERSION="2.2"
 
 PROCCOUNT=`ps -l | wc -l`
