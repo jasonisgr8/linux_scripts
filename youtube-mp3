@@ -15,7 +15,7 @@ read -r -p "    Youtube-dl not found, would you like to install it?             
 fi
 
 if [ ! $1 ]; then
-echo "Usage: $0 <YouTube URL>"
+echo "Usage: $0 \"<YouTube URL>\""
 else
         youtube-dl -U
         youtube-dl --no-mtime --geo-bypass --add-metadata --extract-audio --audio-format mp3 "$1"
