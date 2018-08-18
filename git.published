@@ -1,8 +1,8 @@
 #!/bin/bash
 # git.published
 
-EMAIL="jasonisgr8@gmail.com"
-NAME="jason"
+EMAIL="repo@email.com"
+NAME="Name"
 
 echo "Preparing to publish modified files..."
 git config --global user.email "$EMAIL"
