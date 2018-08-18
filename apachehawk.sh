@@ -35,7 +35,7 @@ if [ ! "`cat /etc/hosts.deny | grep $EACH`" ]; then
  fi
 
 done
-sleep 10m
+sleep 2m
 done
 
 exit 0
