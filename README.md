@@ -9,7 +9,7 @@ All contributions are welcome, from code to documentation, to graphics, to desig
 
 ##  :heavy_exclamation_mark: Requirements
 
-A linux operating system. Recommend Kali Linux 2016 "rolling" edition. 
+A linux operating system. Recommend Parrot OS or Kali Linux "Rolling" edition. 
 
 ## :octocat: Credits
 1. No one
