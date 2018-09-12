@@ -12,5 +12,5 @@ All contributions are welcome, from code to documentation, to graphics, to desig
 A linux operating system. Recommend Parrot OS or Kali Linux "Rolling" edition. 
 
 ## :octocat: Credits
-1. No one
+1. Everyone, Thank you!
 
