@@ -4,8 +4,8 @@ if [ ! "`which youtube-dl`" ]; then
 read -r -p "    Youtube-dl not found, would you like to install it?             [Y/n]? " answer
     case $answer in
         [yY][eE][sS]|[yY]|'')
-        sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
-        sudo chmod a+rx /usr/local/bin/youtube-dl
+	sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+	sudo chmod a+rx /usr/local/bin/youtube-dl
         ;;
         [nN][oO]|[nN])
         echo "Whatever, I'm out."
@@ -14,11 +14,10 @@ read -r -p "    Youtube-dl not found, would you like to install it?             
     esac
 fi
 
-if [ ! $1 ]; then
-echo "Usage: $0 \"<YouTube URL>\""
-else
-        youtube-dl -U
-        youtube-dl --no-mtime --geo-bypass --add-metadata --extract-audio --audio-format mp3 "$1"
+if [ ! $1 ]; then 
+echo "Usage: $0 \"https://YouTube.URL\""
+else 
+	youtube-dl -U
+	youtube-dl -i --no-mtime --geo-bypass --add-metadata --extract-audio --audio-format mp3 "$1"
 fi
 exit 0
-
