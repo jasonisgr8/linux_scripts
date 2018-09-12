@@ -1,0 +1,127 @@
+#!/bin/bash
+VERSION="4.1"
+
+# Where your videos first download to:
+SOURCEFOLDER="./NewStuff"
+
+# Where your videos go to get cleant up:
+WORKINGDIR="./Videos/.tmp"
+
+# Where you want your videos to end up:
+DESTINATION="./Videos/NewStuff"
+
+log_and_print ()
+{
+  echo "~[*]~" $1
+  logger sync_NewStuff - $1
+}
+
+# Check Dependancies
+if [ ! "`which rename`" ]; then
+if [ "`lsb_release -i | grep -i ubuntu`" ]; then
+log_and_print "Could not find package \"rename\" attempting to install..."
+sudo apt install rename
+else log_and_print "Package \"rename\" is not found, exiting..."
+exit 1
+fi
+fi
+# rename
+
+mkdir -p $DESTINATION
+mkdir -p $WORKINGDIR
+mkdir -p $SOURCEFOLDER
+
+clear
+log_and_print "Removing spaces where needed..."
+cd $SOURCEFOLDER
+rename 's/ /./g' *
+rename 's/ /./g' */*
+rename 's/ /./g' */*/*
+rename 's/ /./g' */*/*/*
+rename 's/ /./g' */*/*/*/*
+
+log_and_print "Cleaning up the workspace..."
+if [ "`ls $WORKINGDIR/`" ]; then
+sudo rm $WORKINGDIR/*
+fi
+
+log_and_print "Checking for videos..."
+if [ ! "`find $SOURCEFOLDER -iname "*.mp4" -or -iname "*.avi" -or -iname "*.mkv" | grep -vi sample | grep -vi "rarbg.com.mp4" | grep -v "RARBG" | grep -v Pending`" ]; then
+log_and_print "Nothing to see here, try again later. :-("
+exit 0
+else 
+log_and_print "Looks like we have stuff to watch! :-)"
+
+NEWFILES="`find $SOURCEFOLDER -iname "*.mp4" -or -iname "*.avi" -or -iname "*.mkv" | grep -vi sample | grep -vi "rarbg.com.mp4" | grep -v "RARBG" | grep -v Pending`" 
+for TARGET in "$NEWFILES"; do
+log_and_print "Linking videos into the workspace..."
+sudo chmod 777 $TARGET
+ln $TARGET "$WORKINGDIR/" || exit 1
+done
+fi
+
+cd "$WORKINGDIR"
+log_and_print "Cleaning up filenames..."
+
+STRIP="
+1080p
+720p
+HDTV
+hdrip
+webrip
+webdl
+web-dl
+bluray
+amzn
+BDRip
+brrip
+DvDrip
+PDTV
+dsr
+dtv
+repack
+aaf
+proper
+x264
+xvid
+"
+
+rename_them() {
+if [ "`find ./ -name "*.$TYPE" | sed 's/\ /\\ /g' | grep -v ".loaded" | grep -vi "sample" | grep -i "$each" `" ]; then
+find ./ -name "*.$TYPE" | sed 's/\ /\\ /g' | grep -v ".loaded" | grep -vi "sample" | grep -i "$each" | while read MYLIST
+do
+echo "Renaming $MYLIST..."
+rename "s/.$each.*/.$TYPE/i" "$MYLIST"
+done
+fi
+}
+
+for each in $STRIP
+do
+
+TYPE="avi"
+rename_them
+
+TYPE="mkv"
+rename_them
+
+TYPE="mp4"
+rename_them
+
+TYPE="srt"
+rename_them
+
+done
+
+log_and_print "Done with cleanup, moving videos to $DESTINATION..."
+if [ "`ls`" ]; then
+mv * $DESTINATION/
+fi
+
+log_and_print "Removing duplicates that weren't copied..."
+if [ "`ls $WORKINGDIR/`" ]; then
+sudo rm $WORKINGDIR/*
+fi
+
+log_and_print "All tasks completed."
+exit 0

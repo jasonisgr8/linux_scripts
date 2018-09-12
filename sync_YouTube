@@ -1,0 +1,76 @@
+#!/bin/bash
+VERSION="2.0"
+# 1.0 - Clean release
+
+WORKINGDIR="./Videos/.youtmp"
+VIDEODIR="./Videos/NewStuff"
+MUSICDIR="./Music/sortme"
+
+# Youtube Playlists must be publicly available
+ARCHIVEPL=".Archive-List"
+MUSICPL="https://www.youtube.com/watch?v=ah5gAkna3jI&list=PLOFpgqiY9cwYxsq32wEtaPybbrSFP7fWt"
+SUBSCRIBEPL=".Channel-List"
+
+if [ ! "`which youtube-dl`" ]; then
+read -r -p "    Youtube-dl not found, would you like to install it?             [Y/n]? " answer
+    case $answer in
+        [yY][eE][sS]|[yY]|'')
+	sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+	sudo chmod a+rx /usr/local/bin/youtube-dl
+        ;;
+        [nN][oO]|[nN])
+        echo "Whatever, I'm out."
+        exit 0
+        ;;
+    esac
+fi
+
+log_and_print ()
+{
+  echo "[*]   " $1
+  logger sync_YouTube - $1
+}
+
+mkdir -p $WORKINGDIR
+mkdir -p $VIDEODIR
+mkdir -p $MUSICDIR
+log_and_print "Starting sync process: `date`"
+log_and_print "Updating youtube-dl ..."
+youtube-dl -U
+
+cd $WORKINGDIR
+if [ ! "`ps -ef | grep youtube-dl | grep $ARCHIVEPL | grep -v grep`" ]; then
+touch .ytsync.log
+log_and_print "Downloading videos from \"Archive\" playlist..."
+youtube-dl -i --geo-bypass --no-mtime --restrict-filenames --download-archive .ytsync.log -a $ARCHIVEPL
+sleep 1
+if [ "`ls`" ]; then
+mv * $VIDEODIR
+fi
+sleep 5
+else log_and_print "youtube-dl is already pulling archive files, moving on..."
+fi
+
+if [ ! "`ps -ef | grep youtube-dl | grep $SUBSCRIBEPL | grep -v grep`" ]; then
+log_and_print "Downloading latest videos from channels you subscribe to..."
+youtube-dl -iq --geo-bypass --restrict-filenames --no-mtime --dateafter today-5days --download-archive .ytsync.log -a $SUBSCRIBEPL
+sleep 1
+if [ "`ls`" ]; then
+mv * $VIDEODIR
+fi
+sleep 5
+else log_and_print "youtube-dl is already pulling subscription videos, moving on..."
+fi
+
+if [ ! "`ps -ef | grep youtube-dl | grep mp3 | grep -v grep`" ]; then
+log_and_print "Downloading Music to convert to mp3..."
+cd $MUSICDIR
+touch .ytsync.log
+youtube-dl -i --no-mtime --geo-bypass --add-metadata --extract-audio --audio-format mp3 --download-archive .ytsync.log "$MUSICPL"
+sleep 1
+else log_and_print "youtube-dl is already pulling music, moving on..."
+fi
+
+log_and_print "Completed sync process: `date`"
+
+exit 0
