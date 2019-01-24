@@ -47,7 +47,7 @@ mkdir -p $VIDEODIR
 mkdir -p $MUSICDIR
 log_and_print "Starting sync process: `date`"
 log_and_print "Updating youtube-dl ..."
-youtube-dl -U
+sudo youtube-dl -U
 
 cd $WORKINGDIR
 
