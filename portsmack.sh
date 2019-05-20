@@ -2,6 +2,7 @@
 
 VERSION="2.2"
 # Usage: ./portsmack.sh 
+# Stats: ./portsmack.sh status
 
 ## Changelog
 
