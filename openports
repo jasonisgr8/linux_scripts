@@ -1,2 +1,2 @@
 #!/bin/bash
-netstat -an | grep -i listen\ 
+netstat -utapn | grep -i listen\ 
