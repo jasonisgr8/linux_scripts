@@ -1,0 +1,90 @@
+#!/bin/bash
+
+PORTS="22,80,443"
+ALLOWED="90.174.0.0/16,16.4.3.4,127.0.0.1/32,127.0.0.2/32"
+
+log_and_print ()
+{
+  echo "~[*]~" $1
+  logger portshield - $1
+}
+
+# check Root
+if [ "$UID" = "0" ]; then
+log_and_print "I have adequate permissions, continuing on..."
+else log_and_print "I am not root, lets try one more time with sudo..."
+sudo $0 $1
+exit 0
+fi
+
+case "$1" in
+'block')
+	log_and_print "Blocking UDP..."
+	if [ ! "`iptables -w -L -n | grep ACCEPT | grep udp | grep $PORTS`" ]; then
+	iptables -w -A INPUT -s $ALLOWED -p udp -m multiport --dports $PORTS -j ACCEPT
+	else log_and_print "UDP ACCEPT Rule exists, skipping..."
+	fi
+	if [ ! "`iptables -w -L -n | grep DROP | grep udp | grep $PORTS`" ]; then
+	iptables -w -A INPUT -p udp -m multiport --dports $PORTS -j DROP
+	else log_and_print "UDP DROP Rule exists, skipping..."
+	fi
+
+        log_and_print "Blocking TCP..."
+	if [ ! "`iptables -w -L -n | grep ACCEPT | grep tcp | grep $PORTS`" ]; then
+	iptables -w -A INPUT -s $ALLOWED -p tcp -m multiport --dports $PORTS -j ACCEPT
+	else log_and_print "TCP ACCEPT Rule exists, skipping..."
+	fi
+	if [ ! "`iptables -w -L -n | grep DROP | grep tcp | grep $PORTS`" ]; then
+	iptables -w -A INPUT -p tcp -m multiport --dports $PORTS -j DROP
+	else log_and_print "TCP DROP Rule exists, skipping..."
+	fi
+
+
+        log_and_print "Blocking SMTP..."
+	if [ ! "`iptables -w -L -n | grep DROP | grep tcp | grep 'dpt:25'`" ]; then
+	iptables -w -A OUTPUT -p tcp --dport 25 -j DROP
+	iptables -w -A OUTPUT -p udp --dport 25 -j DROP
+	iptables -w -A INPUT -p tcp --dport 25 -j DROP
+	iptables -w -A INPUT -p udp --dport 25 -j DROP
+	else log_and_print "SMTP DROP Rules exists, skipping..."
+	fi
+	;;
+
+'unblock')
+        log_and_print "Un-blocking UDP and TCP..."
+	if [ "`iptables -w -L -n | grep DROP | grep udp | grep $PORTS`" ]; then
+	iptables -w -D INPUT -p udp -m multiport --dports $PORTS -j DROP
+	else log_and_print "No UDP DROP Rule exists, skipping..."
+	fi
+	if [ "`iptables -w -L -n | grep DROP | grep tcp | grep $PORTS`" ]; then
+	iptables -w -D INPUT -p tcp -m multiport --dports $PORTS -j DROP
+	else log_and_print "No TCP DROP Rule exists, skipping..."
+	fi
+
+        log_and_print "Sleeping for 1 hour and will re-block ports..."
+	sleep 3600 && iptables -w -A INPUT -p udp -m multiport --dports $PORTS -j DROP && iptables -w -A INPUT -p tcp -m multiport --dports $PORTS -j DROP && log_and_print "Times up, re-blocking ports and exiting." &
+	;;
+
+'open')
+        log_and_print "Un-blocking UDP and TCP..."
+	if [ "`iptables -w -L -n | grep DROP | grep udp | grep $PORTS`" ]; then
+	iptables -w -D INPUT -p udp -m multiport --dports $PORTS -j DROP
+	else log_and_print "No UDP DROP Rule exists, skipping..."
+	fi
+	if [ "`iptables -w -L -n | grep DROP | grep tcp | grep $PORTS`" ]; then
+	iptables -w -D INPUT -p tcp -m multiport --dports $PORTS -j DROP
+	else log_and_print "No TCP DROP Rule exists, skipping..."
+	fi
+	log_and_print "Sleeping for 8 hours and will re-block ports..."
+	sleep 28800 && iptables -w -A INPUT -p udp -m multiport --dports $PORTS -j DROP && iptables -w -A INPUT -p tcp -m multiport --dports $PORTS -j DROP && log_and_print "Times up, re-blocking ports and exiting." &
+	;;
+
+'status') 
+        log_and_print "Checking for matching rules..."
+	iptables -w -L -n | grep $PORTS
+	;;
+	
+*)
+	echo "Usage: $0 { block | unblock | status }"
+    ;;
+esac
