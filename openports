@@ -1,2 +1,7 @@
 #!/bin/bash
-netstat -utapn | grep -i listen\ 
+echo "TCP Ports:"
+netstat -utapn | grep -i listen\ | sort
+
+echo ""
+echo "UDP Ports:"
+netstat -uapn | grep udp

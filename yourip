@@ -1,0 +1,21 @@
+#!/bin/bash
+
+log_and_print ()
+{
+  echo "~[*]~" $1
+  logger yourip - $1
+}
+
+case "$1" in
+'video')
+	yt-dlp -i -4 --geo-bypass --restrict-filenames --no-mtime --add-metadata --download-archive .ytsync.log "$2"
+;;
+'mp3')
+	yt-dlp -i -4 --geo-bypass --restrict-filenames --no-mtime --add-metadata --extract-audio --audio-format mp3 "$2"
+;;
+*)
+	echo "Usage: $0 [ video | mp3 ] \"https://YouTube.URL\""
+;;
+esac
+
+exit 0
